@@ -1,0 +1,18 @@
+{
+  "name": "cade-meu-bolo",
+  "version": "1.0.0",
+  "description": "A skill que lembra quantos dias faltam para o seu aniversário e canta parabéns para você.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "DD Tecnologia",
+  "license": "MIT",
+  "dependencies": {
+    "ask-sdk-core": "^2.0.7",
+    "ask-sdk-model": "^1.4.1",
+    "aws-sdk": "^2.326.0",
+    "ask-sdk-s3-persistence-adapter": "^2.0.0",
+    "lodash": "^4.17.15"
+  }
+}
