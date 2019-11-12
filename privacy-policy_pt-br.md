@@ -77,8 +77,8 @@ Os serviços da DD Tecnologia podem incluir hiperlinks para outros sites, conte�
 
 [contato@ddamasio.com](mailto:contato@ddamasio.com)
 
-DD Tecnologia
-Rodovia Anel Rodoviário Celso Mello Azevedo, 10800, Sala 09, João Pinheiro
-Belo Horizonte - MG
-CEP: 30530-072
-Brasil
+DD Tecnologia  
+Rodovia Anel Rodoviário Celso Mello Azevedo, 10800, Sala 09, João Pinheiro  
+Belo Horizonte - MG  
+CEP: 30530-072  
+Brasil  
