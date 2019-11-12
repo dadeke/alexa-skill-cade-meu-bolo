@@ -8,7 +8,7 @@ Esta skill é capaz de lembrar quantos dias faltam para o seu próximo aniversá
 Diga "Alexa, Cadê Meu Bolo?". Ela irá perguntar quando é que você nasceu.
 Depois dela saber a sua data de nascimento, sempre quando você perguntá-la "Alexa, Cadê Meu Bolo?" ela irá dizer quantos dias faltam e quantos anos você irá fazer no seu próximo aniversário.
 
-Quando chegar o dia, ela irá cantar "parabéns pra você" e bater palmas.
+Quando chegar o dia do seu aniversário, basta perguntar "Alexa, Cadê Meu Bolo?" ela irá cantar "parabéns pra você", dar os parabéns e bater palmas.
 
 Caso deseje corrigir a sua data de nascimento, acesse o aplicativo Alexa, desative esta skill e em seguida ative-a novamente para uso. Depois é somente repetir o processo informando a sua data de nascimento.
 
