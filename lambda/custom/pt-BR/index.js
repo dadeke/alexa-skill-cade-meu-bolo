@@ -6,7 +6,7 @@ const Util = require('./util.js');
 
 const messages = {
     WELCOME: 'Olá! Bem-vindo ao Cadê Meu Bolo. Quando é que você nasceu?',
-    WELCOME_BACK: 'Bem-vindo de volta. Parece que faltam {0} dias para o seu aniversário de {1} anos.',
+    WELCOME_BACK: 'Parece que faltam {0} dias para o seu aniversário de {1} anos.',
     INTERJECTION: ' <say-as interpret-as="interjection">Parabéns!</say-as> ',
     REPROMPT: 'Eu nasci em 6 de novembro de 2014. Quando é que você nasceu?',
     REMEMBER: 'Obrigado. Vou lembrar quantos dias faltam para o seu aniversário.',
