@@ -1,6 +1,14 @@
 
 # Skill da Alexa: Cadê Meu Bolo
 
+### _Gostou desta skill? Considere fazer uma doação para ajudar a apoiar seu desenvolvimento. Muito obrigado!_
+
+[<p align="center">![Doe com PicPay!](https://i.imgur.com/4dRgTqp.png)</p>](https://picpay.me/deividsondamasio)
+
+[<p align="center">![Doe com PagSeguro - é rápido, grátis e seguro!](https://stc.pagseguro.uol.com.br/public/img/botoes/doacoes/205x30-doar-azul.gif)</p>](https://pag.ae/bmm4Bc5)
+
+[<p align="center">![PayPal – The safer, easier way to pay online!](https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif)</p>](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9EMLYYY3VQKVG)
+
 Esse é o repositório do código fonte da skill da Alexa: Cadê Meu Bolo.
 
 Esta skill é capaz de lembrar quantos dias faltam para o seu próximo aniversário.
