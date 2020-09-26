@@ -20,6 +20,4 @@ Quando chegar o dia do seu aniversário, basta perguntar "Alexa, Cadê Meu Bolo?
 
 Caso deseje corrigir a sua data de nascimento, acesse o aplicativo Alexa, desative esta skill e em seguida ative-a novamente para uso. Depois é somente repetir o processo informando a sua data de nascimento.
 
-Você pode contribuir para o código fonte dessa skill no GitHub - https://github.com/dadeke/alexa-skill-cade-meu-bolo
-
 "Esforcem-se para ter uma vida tranquila, cuidar dos seus próprios negócios e trabalhar com as próprias mãos..." 1 Tessalonicenses 4:11 NVI
