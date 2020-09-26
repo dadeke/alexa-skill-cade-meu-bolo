@@ -9,7 +9,7 @@
 
 [<p align="center">![PayPal – The safer, easier way to pay online!](https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif)</p>](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9EMLYYY3VQKVG)
 
-Esse é o repositório do código fonte da skill da Alexa: Cadê Meu Bolo.
+Repositório do código fonte da skill da Alexa: Cadê Meu Bolo.
 
 Esta skill é capaz de lembrar quantos dias faltam para o seu próximo aniversário.
 
