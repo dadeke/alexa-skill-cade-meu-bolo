@@ -382,6 +382,27 @@ const CancelAndStopIntentHandler = {
     handle(handlerInput) {
         return handlerInput.responseBuilder
             .speak(messages.BYE_BYE)
+            .withStandardCard(
+                messages.SKILL_NAME,
+                messages.BYE_BYE
+            )
+            .withShouldEndSession(true)
+            .getResponse();
+    }
+};
+
+const FallbackIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.FallbackIntent';
+    },
+    handle(handlerInput) {
+        return handlerInput.responseBuilder
+            .speak(messages.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE)
+            .withStandardCard(
+                messages.SKILL_NAME,
+                messages.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE
+            )
             .withShouldEndSession(true)
             .getResponse();
     }
@@ -443,6 +464,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         CaptureBirthdayIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
+        FallbackIntentHandler,
         SessionEndedRequestHandler)
     .addErrorHandlers(
         ErrorHandler)
