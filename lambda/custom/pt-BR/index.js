@@ -170,8 +170,8 @@ const HasBirthdayLaunchRequestHandler = {
             currentYear++;
         }
         
-        // Define a fala padrão para "Bem vindo de volta...".
-        // Quando for o dia do aniversário, toca o áudio "parabéns pra você", dê os parabéns e toca o áudio dos aplausos.
+        // Define a fala padrão para "Olá, bem-vindo de volta..." com ou sem personalização.
+        // Quando for o dia do aniversário, toca o áudio "parabéns pra você", "viva!" e toca o áudio dos aplausos.
         let speakOutput = null;
         if (currentDate.getTime() !== nextBirthday) {
             const diffDays = Math.round(Math.abs((currentDate.getTime() - nextBirthday) / oneDay));
