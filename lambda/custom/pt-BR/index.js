@@ -145,7 +145,10 @@ const HasBirthdayLaunchRequestHandler = {
             userTimeZone = await upsServiceClient.getSystemTimeZone(deviceId);    
         } catch (error) {
             if (error.name !== 'ServiceError') {
-                return handlerInput.responseBuilder.speak(messages.PROBLEM).getResponse();
+                return handlerInput.responseBuilder
+                    .speak(messages.PROBLEM)
+                    .withShouldEndSession(true)
+                    .getResponse();
             }
             console.log('error', error.message);
         }
