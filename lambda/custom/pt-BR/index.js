@@ -43,10 +43,10 @@ const monthsEnglish = {
  * Equivalente ao "printf()" C/PHP ou ao "String.Format()" para programadores C#/Java.
  */
 String.prototype.format = function() {
-	var args = arguments;
-	return this.replace(/\{(\d+)\}/g, function(text, key) {
-		return args[key];
-	});
+    var args = arguments;
+    return this.replace(/\{(\d+)\}/g, function(text, key) {
+        return args[key];
+    });
 };
 
 const HasBirthdayLaunchRequestHandler = {
@@ -72,7 +72,6 @@ const HasBirthdayLaunchRequestHandler = {
             slotDay;
     },
     async handle(handlerInput) {
-        
         const serviceClientFactory = handlerInput.serviceClientFactory;
         const deviceId = handlerInput.requestEnvelope.context.System.device.deviceId;
 
@@ -156,11 +155,10 @@ const HasBirthdayLaunchRequestHandler = {
         const oneDay = 24*60*60*1000;
         
         // Obtém a data atual com a hora.
-        const currentDateTime = new Date(new Date().toLocaleString("en-US", {timeZone: userTimeZone}));
+        const currentDateTime = new Date(new Date().toLocaleString('en-US', { timeZone: userTimeZone }));
         // Remove a hora da data porque afeta o cálculo de diferença.
         const currentDate = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), currentDateTime.getDate());
         let currentYear = currentDate.getFullYear();
-        
         // Obtém o próximo antiversário.
         let nextBirthday = new Date(currentYear, month, day);
         nextBirthday = nextBirthday.getTime();
