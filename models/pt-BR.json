@@ -20,14 +20,18 @@
                     "samples": []
                 },
                 {
-                    "name": "CapturarAniversario",
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "CaptureBirthdayIntent",
                     "slots": [
                         {
-                            "name": "dia",
+                            "name": "day",
                             "type": "AMAZON.NUMBER"
                         },
                         {
-                            "name": "mes",
+                            "name": "month",
                             "type": "AMAZON.Month"
                         },
                         {
@@ -36,15 +40,15 @@
                         }
                     ],
                     "samples": [
-                        "{dia}",
-                        "{mes}",
-                        "{ano}",
-                        "{dia} de {mes}",
-                        "{dia} de {mes} de {ano}",
-                        "{mes} de {ano}",
-                        "Eu nasci em {dia} de {mes} ",
-                        "Eu nasci em {dia} de {mes} de {ano}",
-                        "Eu nasci em {mes} de {ano}"
+                        "{day}",
+                        "{month}",
+                        "{year}",
+                        "{day} de {month}",
+                        "{day} de {month} de {year}",
+                        "{month} de {year}",
+                        "Eu nasci em {day} de {month} ",
+                        "Eu nasci em {day} de {month} de {year}",
+                        "Eu nasci em {month} de {year}"
                     ]
                 }
             ],
@@ -53,12 +57,12 @@
         "dialog": {
             "intents": [
                 {
-                    "name": "CapturarAniversario",
+                    "name": "CaptureBirthdayIntent",
                     "confirmationRequired": false,
                     "prompts": {},
                     "slots": [
                         {
-                            "name": "dia",
+                            "name": "day",
                             "type": "AMAZON.NUMBER",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
@@ -67,7 +71,7 @@
                             }
                         },
                         {
-                            "name": "mes",
+                            "name": "month",
                             "type": "AMAZON.Month",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
