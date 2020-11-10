@@ -1,13 +1,13 @@
 
 # Política de Privacidade da DD Tecnologia
 
-_Última Atualização: 12 de novembro de 2019_
+_Última Atualização: 10 de novembro de 2020_
 
 ## 1. Introdução e quem somos
 
 A DD Tecnologia ("Cadê Meu Bolo") tem como política da empresa respeitar sua privacidade quanto aos dados pessoais que usamos que possamos coletar quando você usar Funcionalidades da Alexa. Assim, a DD Tecnologia elaborou esta política de privacidade para que você entenda como coletamos, usamos, comunicamos, divulgamos e usamos seus dados pessoais.
 
-A DD Tecnologia incentiva você a ler este documento atentamente, do começo ao fim; se tiver alguma dúvida, envie um email para [contato@ddamasio.com](mailto:contato@ddamasio.com).
+A DD Tecnologia incentiva você a ler este documento atentamente, do começo ao fim; se tiver alguma dúvida, envie um email para [oi@dd.tec.br](mailto:oi@dd.tec.br).
 
 ## 2. O que a DD Tecnologia coleta e qual sua finalidade
 
@@ -23,11 +23,11 @@ Data de nascimento. Ela é coletada apenas quando você informa para habilidade 
 
 ## 3. Fundamentos jurídicos para a DD Tecnologia tratar seus dados pessoais
 
-Ao usar os serviços da DD Tecnologia, você está dando seu consentimento à DD Tecnologia para tratar seus dados pessoais. Se quiser retirar este consentimento a qualquer momento, entre em contato com a DD Tecnologia pelo email [contato@ddamasio.com](mailto:contato@ddamasio.com).
+Ao usar os serviços da DD Tecnologia, você está dando seu consentimento à DD Tecnologia para tratar seus dados pessoais. Se quiser retirar este consentimento a qualquer momento, entre em contato com a DD Tecnologia pelo email [oi@dd.tec.br](mailto:oi@dd.tec.br).
 
 ## 4. Compartilhamento de dados pessoais com terceiros
 
-A DD Tecnologia compartilha seus dados apenas com a Amazon Web Services EMEA SARL para nos ajudar a fornecer nossos produtos e serviços. 
+A DD Tecnologia compartilha seus dados apenas com a Amazon Web Services, Inc. para nos ajudar a fornecer nossos produtos e serviços.
 
 ## 5. Armazenamento de dados e localização do tratamento
 
@@ -75,9 +75,9 @@ Os serviços da DD Tecnologia podem incluir hiperlinks para outros sites, conte�
 
 ## 12. Dados para contato
 
-[contato@ddamasio.com](mailto:contato@ddamasio.com)
+[oi@dd.tec.br](mailto:oi@dd.tec.br)
 
-DD Tecnologia  
+DD Tecnologia / CNPJ: 32.154.662/0001-02  
 Rodovia Anel Rodoviário Celso Mello Azevedo, 10800, Sala 09, João Pinheiro  
 Belo Horizonte - MG  
 CEP: 30530-072  
