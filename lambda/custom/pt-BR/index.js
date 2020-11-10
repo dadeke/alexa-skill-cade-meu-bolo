@@ -51,25 +51,41 @@ String.prototype.format = function() {
 
 const HasBirthdayLaunchRequestHandler = {
     canHandle(handlerInput) {
+        let personId = 'default'
+        const person = handlerInput.requestEnvelope.context.System.person;
+        if(person) {
+            personId = person.personId;
+        }
+
         const attributesManager = handlerInput.attributesManager;
         const sessionAttributes = attributesManager.getSessionAttributes() || {};
+
+        const birthdayAttributes = sessionAttributes.hasOwnProperty(personId) ? sessionAttributes[personId] : {};
         
-        const ano = sessionAttributes.hasOwnProperty('ano') ? sessionAttributes.ano : 0;
-        const mes = sessionAttributes.hasOwnProperty('mes') ? sessionAttributes.mes : 0;
-        const dia = sessionAttributes.hasOwnProperty('dia') ? sessionAttributes.dia : 0;
+        const slotYear = birthdayAttributes.hasOwnProperty('year') ? birthdayAttributes.year : 0;
+        const slotMonth = birthdayAttributes.hasOwnProperty('month') ? birthdayAttributes.month : 0;
+        const slotDay = birthdayAttributes.hasOwnProperty('day') ? birthdayAttributes.day : 0;
         
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' &&
-            ano &&
-            mes &&
-            dia;
+            slotYear &&
+            slotMonth &&
+            slotDay;
     },
     async handle(handlerInput) {
         
         const serviceClientFactory = handlerInput.serviceClientFactory;
         const deviceId = handlerInput.requestEnvelope.context.System.device.deviceId;
+
+        let personId = 'default'
+        const person = handlerInput.requestEnvelope.context.System.person;
+        if(person) {
+            personId = person.personId;
+        }
         
         const attributesManager = handlerInput.attributesManager;
         const sessionAttributes = attributesManager.getSessionAttributes() || {};
+
+        const birthdayAttributes = sessionAttributes.hasOwnProperty(personId) ? sessionAttributes[personId] : {};
         
         const ano = sessionAttributes.hasOwnProperty('ano') ? sessionAttributes.ano : 0;
         const mes = sessionAttributes.hasOwnProperty('mes') ? sessionAttributes.mes : 0;
@@ -107,8 +123,23 @@ const HasBirthdayLaunchRequestHandler = {
         // Quando for o dia do aniversário, toca o áudio "parabéns pra você", dê os parabéns e toca o áudio dos aplausos.
         let speakOutput = null;
         if (currentDate.getTime() !== nextBirthday) {
-            const diffDays = Math.round(Math.abs((currentDate.getTime() - nextBirthday)/oneDay));
-            speakOutput = messages.WELCOME_BACK.format(diffDays, currentYear - ano);
+            const diffDays = Math.round(Math.abs((currentDate.getTime() - nextBirthday) / oneDay));
+
+            if(personId !== 'default') {
+                speakOutput = messages.PERSONALIZED_WELCOME_BACK.format(personId, diffDays, currentYear - year);
+            }
+            else {
+                speakOutput = messages.WELCOME_BACK.format(diffDays, currentYear - year);
+            }
+
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .withStandardCard(
+                    messages.SKILL_NAME,
+                    messages.WELCOME_BACK.format(diffDays, currentYear - year)
+                )
+                .withShouldEndSession(true)
+                .getResponse();
         }
         else {
             const urlHappyBirthDay = Escape(Util.getS3PreSignedUrl('Media/alexa_happy_birthday_pt_br.mp3'));
@@ -129,8 +160,23 @@ const LaunchRequestHandler = {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
+        const person = handlerInput.requestEnvelope.context.System.person;
+
+        let speakOutput = null;
+
+        if(person) {
+            speakOutput = messages.PERSONALIZED_WELCOME.format(person.personId)
+        }
+        else {
+            speakOutput = messages.WELCOME;
+        }
+
         return handlerInput.responseBuilder
-            .speak(messages.WELCOME)
+            .speak(speakOutput)
+            .withStandardCard(
+                messages.SKILL_NAME,
+                messages.WELCOME
+            )
             .reprompt(messages.REPROMPT)
             .getResponse();
     }
@@ -147,14 +193,18 @@ const BirthdayIntentHandler = {
         const dia = handlerInput.requestEnvelope.request.intent.slots.dia.value;
         
         const attributesManager = handlerInput.attributesManager;
+        let sessionAttributes = await attributesManager.getPersistentAttributes() || {};
         
         const birthdayAttributes = {
-            "ano": ano,
-            "mes": mes,
-            "dia": dia
-            
+            [personId]: {
+                'year': year,
+                'month': month + 1, // No JavaScript o primeiro mês começa com zero.
+                'day': day
+            }
         };
-        attributesManager.setPersistentAttributes(birthdayAttributes);
+        Object.assign(sessionAttributes, birthdayAttributes);
+
+        attributesManager.setPersistentAttributes(sessionAttributes);
         await attributesManager.savePersistentAttributes();    
         
         return handlerInput.responseBuilder
@@ -216,14 +266,22 @@ const ErrorHandler = {
 
 const LoadBirthdayInterceptor = {
     async process(handlerInput) {
+        let personId = 'default'
+        const person = handlerInput.requestEnvelope.context.System.person;
+        if(person) {
+            personId = person.personId;
+        }
+
         const attributesManager = handlerInput.attributesManager;
         const sessionAttributes = await attributesManager.getPersistentAttributes() || {};
+
+        const birthdayAttributes = sessionAttributes.hasOwnProperty(personId) ? sessionAttributes[personId] : {};
+
+        const slotYear = birthdayAttributes.hasOwnProperty('year') ? birthdayAttributes.year : 0;
+        const slotMonth = birthdayAttributes.hasOwnProperty('month') ? birthdayAttributes.month : 0;
+        const slotDay = birthdayAttributes.hasOwnProperty('day') ? birthdayAttributes.day : 0;
         
-        const ano = sessionAttributes.hasOwnProperty('ano') ? sessionAttributes.ano : 0;
-        const mes = sessionAttributes.hasOwnProperty('mes') ? sessionAttributes.mes : 0;
-        const dia = sessionAttributes.hasOwnProperty('dia') ? sessionAttributes.dia : 0;
-        
-        if (ano && mes && dia) {
+        if (slotYear && slotMonth && slotDay) {
             attributesManager.setSessionAttributes(sessionAttributes);
         }
     }
