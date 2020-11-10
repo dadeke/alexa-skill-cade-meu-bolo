@@ -198,13 +198,21 @@ const HasBirthdayLaunchRequestHandler = {
             const urlHappyBirthDay = Escape(Util.getS3PreSignedUrl('Media/alexa_happy_birthday_pt_br.mp3'));
             const urlApplause = Escape(Util.getS3PreSignedUrl('Media/applause.mp3'));
             
-            speakOutput = messages.AUDIO.format(urlHappyBirthDay) + messages.INTERJECTION + messages.AUDIO.format(urlApplause);
+            speakOutput = messages.AUDIO.format(urlHappyBirthDay)
+                + messages.INTERJECTION
+                + messages.AUDIO.format(urlApplause);
+
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .withStandardCard(
+                    messages.SKILL_NAME,
+                    messages.HAPPY_BIRTHDAY,
+                    'https://[YOUR BUCKET].s3.amazonaws.com/alexa/skill-cade-meu-bolo/icon_108.png',
+                    'https://[YOUR BUCKET].s3.amazonaws.com/alexa/skill-cade-meu-bolo/icon_512.png'
+                )
+                .withShouldEndSession(true)
+                .getResponse();
         }
-        
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .withShouldEndSession(true)
-            .getResponse();
     }
 };
 
@@ -354,7 +362,11 @@ const CaptureBirthdayIntentHandler = {
         await attributesManager.savePersistentAttributes();    
         
         return handlerInput.responseBuilder
-            .speak(messages.REMEMBER.format(dia, mes, ano))
+            .speak(messages.REMEMBER)
+            .withStandardCard(
+                messages.SKILL_NAME,
+                messages.REMEMBER
+            )
             .withShouldEndSession(true)
             .getResponse();
     }
@@ -368,6 +380,10 @@ const HelpIntentHandler = {
     handle(handlerInput) {
         return handlerInput.responseBuilder
             .speak(messages.HELP)
+            .withStandardCard(
+                messages.SKILL_NAME,
+                messages.HELP
+            )
             .reprompt(messages.HELP)
             .getResponse();
     }
@@ -425,8 +441,12 @@ const ErrorHandler = {
         console.log(`~~~~ Error handled: ${error.message}`);
 
         return handlerInput.responseBuilder
-            .speak(messages.UNDERSTAND)
-            .reprompt(messages.UNDERSTAND)
+            .speak(messages.NOT_UNDERSTAND)
+            .withStandardCard(
+                messages.SKILL_NAME,
+                messages.NOT_UNDERSTAND
+            )
+            .reprompt(messages.NOT_UNDERSTAND)
             .getResponse();
     }
 };
