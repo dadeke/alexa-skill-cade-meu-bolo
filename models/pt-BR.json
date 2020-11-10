@@ -35,8 +35,8 @@
                             "type": "AMAZON.Month"
                         },
                         {
-                            "name": "ano",
-                            "type": "AMAZON.FOUR_DIGIT_NUMBER"
+                            "name": "year",
+                            "type": "AMAZON.NUMBER"
                         }
                     ],
                     "samples": [
@@ -80,8 +80,8 @@
                             }
                         },
                         {
-                            "name": "ano",
-                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "name": "year",
+                            "type": "AMAZON.NUMBER",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {

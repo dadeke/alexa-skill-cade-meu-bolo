@@ -23,7 +23,7 @@ const messages = {
     AUDIO: '<audio src="{0}" />',
 };
 
-const meses_ingles = {
+const monthsEnglish = {
     'janeiro': 'january',
     'fevereiro': 'february',
     'março': 'march',
@@ -87,9 +87,57 @@ const HasBirthdayLaunchRequestHandler = {
 
         const birthdayAttributes = sessionAttributes.hasOwnProperty(personId) ? sessionAttributes[personId] : {};
         
-        const ano = sessionAttributes.hasOwnProperty('ano') ? sessionAttributes.ano : 0;
-        const mes = sessionAttributes.hasOwnProperty('mes') ? sessionAttributes.mes : 0;
-        const dia = sessionAttributes.hasOwnProperty('dia') ? sessionAttributes.dia : 0;
+        const slotYear = birthdayAttributes.hasOwnProperty('year') ? birthdayAttributes.year : 0;
+        const slotMonth = birthdayAttributes.hasOwnProperty('month') ? birthdayAttributes.month : 0;
+        const slotDay = birthdayAttributes.hasOwnProperty('day') ? birthdayAttributes.day : 0;
+
+        let year = parseInt(slotYear);
+        let month = parseInt(slotMonth) - 1; // No JavaScript o primeiro mês começa com zero.
+        let day = parseInt(slotDay);
+
+        // Verifica o número do ano de nascimento.
+        if(year <= 0) {
+            console.log('error', `Invalid year of birth in storage - Year: ${year}`);
+
+            return handlerInput.responseBuilder
+                .speak(messages.NOT_UNDERSTAND_BIRTH_DATE_STORAGE)
+                .withStandardCard(
+                    messages.SKILL_NAME,
+                    messages.NOT_UNDERSTAND_BIRTH_DATE_STORAGE
+                )
+                .withShouldEndSession(true)
+                .getResponse();
+        }
+
+        // Verifica o número do dia de nascimento.
+        if(day <= 0) {
+            console.log('error', `Invalid day of birth in storage - Day: ${day}`);
+
+            return handlerInput.responseBuilder
+                .speak(messages.NOT_UNDERSTAND_BIRTH_DATE_STORAGE)
+                .withStandardCard(
+                    messages.SKILL_NAME,
+                    messages.NOT_UNDERSTAND_BIRTH_DATE_STORAGE
+                )
+                .withShouldEndSession(true)
+                .getResponse();
+        }
+
+        // Verifica se é uma data válida.
+        // (Inspirado em: https://stackoverflow.com/questions/1353684/#1353711)
+        const dateBirth = new Date(year, month, day);
+        if (!(dateBirth instanceof Date) || isNaN(dateBirth.getTime())) {
+            console.log('error', `Invalid date of birth in storage - Year: ${year}, month: ${month + 1} and day: ${day}`);
+
+            return handlerInput.responseBuilder
+                .speak(messages.NOT_UNDERSTAND_BIRTH_DATE_STORAGE)
+                .withStandardCard(
+                    messages.SKILL_NAME,
+                    messages.NOT_UNDERSTAND_BIRTH_DATE_STORAGE
+                )
+                .withShouldEndSession(true)
+                .getResponse();
+        }
         
         let userTimeZone;
         try {
@@ -111,11 +159,13 @@ const HasBirthdayLaunchRequestHandler = {
         let currentYear = currentDate.getFullYear();
         
         // Obtém o próximo antiversário.
-        let nextBirthday = Date.parse(`${meses_ingles[mes]} ${dia}, ${currentYear}`);
+        let nextBirthday = new Date(currentYear, month, day);
+        nextBirthday = nextBirthday.getTime();
         
         // Ajusta o próximo aniversário em um ano se a data atual for após o aniversário.
         if (currentDate.getTime() > nextBirthday) {
-            nextBirthday = Date.parse(`${meses_ingles[mes]} ${dia}, ${currentYear + 1}`);
+            nextBirthday = new Date(currentYear + 1, month, day);
+            nextBirthday = nextBirthday.getTime();
             currentYear++;
         }
         
@@ -182,15 +232,108 @@ const LaunchRequestHandler = {
     }
 };
 
-const BirthdayIntentHandler = {
+const CaptureBirthdayIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && handlerInput.requestEnvelope.request.intent.name === 'CapturarAniversario';
+            && handlerInput.requestEnvelope.request.intent.name === 'CaptureBirthdayIntent';
     },
     async handle(handlerInput) {
-        const ano = handlerInput.requestEnvelope.request.intent.slots.ano.value;
-        const mes = handlerInput.requestEnvelope.request.intent.slots.mes.value;
-        const dia = handlerInput.requestEnvelope.request.intent.slots.dia.value;
+        const serviceClientFactory = handlerInput.serviceClientFactory;
+        const deviceId = handlerInput.requestEnvelope.context.System.device.deviceId;
+
+        let personId = 'default'
+        const person = handlerInput.requestEnvelope.context.System.person;
+        if(person) {
+            personId = person.personId;
+        }
+
+        const slotYear = handlerInput.requestEnvelope.request.intent.slots.year.value;
+        const slotMonth = handlerInput.requestEnvelope.request.intent.slots.month.value;
+        const slotDay = handlerInput.requestEnvelope.request.intent.slots.day.value;
+
+        let year = parseInt(slotYear);
+        let month = Object.keys(monthsEnglish).indexOf(slotMonth);
+        let day = parseInt(slotDay);
+
+        // Verifica o número capturado no ano de nascimento.
+        if(year <= 0) {
+            console.log('error', `Invalid year of birth in capture - Year: ${year}`);
+
+            return handlerInput.responseBuilder
+                .speak(messages.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE)
+                .withStandardCard(
+                    messages.SKILL_NAME,
+                    messages.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE
+                )
+                .withShouldEndSession(true)
+                .getResponse();
+        }
+
+        // Verifica o número capturado no dia de nascimento.
+        if(day <= 0) {
+            console.log('error', `Invalid day of birth in capture - Day: ${day}`);
+
+            return handlerInput.responseBuilder
+                .speak(messages.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE)
+                .withStandardCard(
+                    messages.SKILL_NAME,
+                    messages.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE
+                )
+                .withShouldEndSession(true)
+                .getResponse();
+        }
+
+        if(year < 100) {
+            year += 1900;
+        }
+
+        // Verifica se é uma data válida.
+        const dateBirth = new Date(year, month, day);
+        if (!(dateBirth instanceof Date) || isNaN(dateBirth.getTime())) {
+            console.log('error', `Invalid date of birth in capture - Year: ${year}, month: ${month} and day: ${day}`);
+
+            return handlerInput.responseBuilder
+                .speak(messages.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE)
+                .withStandardCard(
+                    messages.SKILL_NAME,
+                    messages.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE
+                )
+                .withShouldEndSession(true)
+                .getResponse();
+        }
+
+        let userTimeZone;
+        try {
+            const upsServiceClient = serviceClientFactory.getUpsServiceClient();
+            userTimeZone = await upsServiceClient.getSystemTimeZone(deviceId);
+        } catch (error) {
+            if (error.name !== 'ServiceError') {
+                return handlerInput.responseBuilder
+                    .speak(messages.PROBLEM)
+                    .withShouldEndSession(true)
+                    .getResponse();
+            }
+            console.log('error', error.message);
+        }
+
+        // Obtém a data atual com a hora.
+        const currentDateTime = new Date(new Date().toLocaleString('en-US', { timeZone: userTimeZone }));
+        // Obtém o ano atual.
+        const currentYear = currentDateTime.getFullYear();
+
+        // Verifica se número capturado no ano de nascimento é igual ou maior que o ano atual.
+        if(year >= currentYear) {
+            console.log('error', `Future year of birth in capture - Year: ${year}`);
+
+            return handlerInput.responseBuilder
+                .speak(messages.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE)
+                .withStandardCard(
+                    messages.SKILL_NAME,
+                    messages.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE
+                )
+                .withShouldEndSession(true)
+                .getResponse();
+        }
         
         const attributesManager = handlerInput.attributesManager;
         let sessionAttributes = await attributesManager.getPersistentAttributes() || {};
@@ -294,7 +437,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         HasBirthdayLaunchRequestHandler,
         LaunchRequestHandler,
-        BirthdayIntentHandler,
+        CaptureBirthdayIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler)
