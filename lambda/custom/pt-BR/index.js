@@ -5,14 +5,20 @@ const Escape = require('lodash/escape');
 const Util = require('./util.js');
 
 const messages = {
+    SKILL_NAME: 'Cadê Meu Bolo',
     WELCOME: 'Olá! Bem-vindo ao Cadê Meu Bolo. Quando é que você nasceu?',
-    WELCOME_BACK: 'Parece que ainda faltam {0} dias para o seu aniversário de {1} anos.',
-    INTERJECTION: ' <say-as interpret-as="interjection">Parabéns!</say-as> ',
+    PERSONALIZED_WELCOME: 'Olá <alexa:name type="first" personId="{0}"/>! Bem-vindo ao Cadê Meu Bolo. Quando é que você nasceu?',
+    WELCOME_BACK: 'Oi, ainda faltam {0} dias para o seu aniversário de {1} anos.',
+    PERSONALIZED_WELCOME_BACK: 'Oi <alexa:name type="first" personId="{0}"/>, ainda faltam {1} dias para o seu aniversário de {2} anos.',
+    INTERJECTION: ' <say-as interpret-as="interjection">Viva!</say-as> ',
+    HAPPY_BIRTHDAY: 'Feliz Aniversário! 👏👏👏',
     REPROMPT: 'Eu nasci em 6 de novembro de 2014. Quando é que você nasceu?',
     REMEMBER: 'Obrigado. Vou lembrar quantos dias faltam para o seu aniversário.',
     HELP: 'Eu sou capaz de lembrar quantos dias faltam para o seu aniversário. Quando é que você nasceu?',
-    PROBLEM: 'Ocorreu um problema ao conectar-se ao serviço.',
-    UNDERSTAND: 'Desculpe, não consegui entender. Por favor, fale novamente.',
+    PROBLEM: 'Ocorreu um problema ao conectar-se ao serviço. Por favor, tente novamente.',
+    NOT_UNDERSTAND: 'Desculpe, não consegui entender. Por favor, fale novamente.',
+    NOT_UNDERSTAND_BIRTH_DATE_CAPTURE: 'Desculpe, não consegui entender a sua data de nascimento. Por favor, chame novamente esta skill.',
+    NOT_UNDERSTAND_BIRTH_DATE_STORAGE: 'Desculpe, não consegui recuperar a sua data de nascimento. Por favor, acesse o aplicativo Alexa, desative e ative novamente esta skill.',
     BYE_BYE: 'Tchauzinho!',
     AUDIO: '<audio src="{0}" />',
 };
