@@ -1,6 +1,6 @@
 {
   "name": "cade-meu-bolo",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "A skill que lembra quantos dias faltam para o seu aniversário e canta parabéns para você.",
   "main": "index.js",
   "scripts": {
