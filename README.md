@@ -9,7 +9,7 @@ Repositório do código fonte da skill da Alexa: [Cadê Meu Bolo](https://www.am
 Compatível com o "Import skill" do Alexa Developer Console.
 [![Compatível com o Import skill](https://i.imgur.com/65L4f3f.png)](https://developer.amazon.com/alexa/console/ask/create-new-skill)
 
-[Changelog](#changelog) [Licença](#licença)
+[Changelog](#changelog)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;[Licença](#licença)
 
 ### _Gostou desta skill? Considere fazer uma doação para ajudar a apoiar seu desenvolvimento. Muito obrigado!_
 
