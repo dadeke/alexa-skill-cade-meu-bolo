@@ -1,7 +1,15 @@
-
 # Skill da Alexa: Cadê Meu Bolo
 
+[![Build Status](https://travis-ci.com/dadeke/alexa-skill-cade-meu-bolo.svg?branch=master)](https://travis-ci.com/github/dadeke/alexa-skill-cade-meu-bolo)
+[![Coverage Status](https://codecov.io/gh/dadeke/alexa-skill-cade-meu-bolo/branch/master/graph/badge.svg)](https://codecov.io/gh/dadeke/alexa-skill-cade-meu-bolo)
+[![Stargazers](https://img.shields.io/github/stars/dadeke/alexa-skill-cade-meu-bolo?style=social)](https://github.com/dadeke/alexa-skill-cade-meu-bolo/stargazers)
+
 Repositório do código fonte da skill da Alexa: [Cadê Meu Bolo](https://www.amazon.com.br/DD-Tecnologia-Cad%C3%AA-Meu-Bolo/dp/B081FL21ZR/).
+
+Compatível com o "Import skill" do Alexa Developer Console.
+[![Compatível com o Import skill](https://i.imgur.com/65L4f3f.png)](https://developer.amazon.com/alexa/console/ask/create-new-skill)
+
+[Changelog](#changelog) [Licença](#licença)
 
 ### _Gostou desta skill? Considere fazer uma doação para ajudar a apoiar seu desenvolvimento. Muito obrigado!_
 
@@ -16,9 +24,9 @@ Quando chegar o dia do seu aniversário, basta perguntar "Alexa, Cadê Meu Bolo?
 
 Caso deseje corrigir a sua data de nascimento, acesse o aplicativo Alexa, desative esta skill e em seguida ative-a novamente para uso. Depois é somente repetir o processo informando a sua data de nascimento.
 
-Agora esta skill pode tentar distinguir a sua voz da voz de outras pessoas e lhe chamar pelo nome.
+Esta skill pode tentar distinguir a sua voz da voz de outras pessoas e lhe chamar pelo nome.
 Este recurso é fornecido pela própria Alexa. Caso tenha problemas para reconhecer a sua voz, será preciso tentar ensiná-la novamente.
-Maiores informações, acesse o aplicativo Alexa em **Configurações > Meu perfil > Voz**.
+Maiores informações, diga: "Alexa, aprenda a minha voz" ou acesse o aplicativo Alexa em **Configurações > Meu perfil > Voz**.
 
 ----------------
 
@@ -34,6 +42,14 @@ Baseada na skill [Cake Time](https://github.com/alexa/skill-sample-nodejs-first-
 
 ## Changelog ##
 
+### 1.3.0 - 09/12/2020 ###
+- Refatoração da estrutura.
+- Adicionado EditorConfig, ESLint e Prettier.
+- Adicionada a migração gradual das datas de nascimento do S3 para o DynamoDB. Isto será removido no futuro.
+- Modificado para utilizar o AMAZON.DATE que agora possui suporte para datas no passado.
+- Adicionado o "skill package" a fim de dar suporte ao "Import skill" no Alexa Developer Console.
+- Implementados os testes unitários utilizando o Jest.
+
 ### 1.2.0 - 10/11/2020 ###
 
 - Adicionado cards.
@@ -48,6 +64,10 @@ Baseada na skill [Cake Time](https://github.com/alexa/skill-sample-nodejs-first-
 
 ### 1.0.0 - 12/11/2019 ###
 - Publicado a primeira versão.
+
+## Licença ##
+
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.txt) para mais detalhes.
 
 ----------------
 
