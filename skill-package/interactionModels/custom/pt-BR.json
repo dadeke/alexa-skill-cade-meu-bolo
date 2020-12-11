@@ -1,130 +1,78 @@
 {
-    "interactionModel": {
-        "languageModel": {
-            "invocationName": "cadê meu bolo",
-            "intents": [
-                {
-                    "name": "AMAZON.CancelIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.HelpIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.StopIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.NavigateHomeIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.FallbackIntent",
-                    "samples": []
-                },
-                {
-                    "name": "CaptureBirthdayIntent",
-                    "slots": [
-                        {
-                            "name": "day",
-                            "type": "AMAZON.NUMBER"
-                        },
-                        {
-                            "name": "month",
-                            "type": "AMAZON.Month"
-                        },
-                        {
-                            "name": "year",
-                            "type": "AMAZON.NUMBER"
-                        }
-                    ],
-                    "samples": [
-                        "{day}",
-                        "{month}",
-                        "{year}",
-                        "{day} de {month}",
-                        "{day} de {month} de {year}",
-                        "{month} de {year}",
-                        "Eu nasci em {day} de {month} ",
-                        "Eu nasci em {day} de {month} de {year}",
-                        "Eu nasci em {month} de {year}"
-                    ]
-                }
-            ],
-            "types": []
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "cadê meu bolo",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
         },
-        "dialog": {
-            "intents": [
-                {
-                    "name": "CaptureBirthdayIntent",
-                    "confirmationRequired": false,
-                    "prompts": {},
-                    "slots": [
-                        {
-                            "name": "day",
-                            "type": "AMAZON.NUMBER",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.303899476312.985837334781"
-                            }
-                        },
-                        {
-                            "name": "month",
-                            "type": "AMAZON.Month",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.303899476312.795077103633"
-                            }
-                        },
-                        {
-                            "name": "year",
-                            "type": "AMAZON.NUMBER",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.303899476312.27341833344"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "delegationStrategy": "ALWAYS"
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
         },
-        "prompts": [
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "CaptureBirthdayIntent",
+          "slots": [
             {
-                "id": "Elicit.Slot.303899476312.795077103633",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "Eu nasci em novembro. Quando você nasceu?"
-                    },
-                    {
-                        "type": "PlainText",
-                        "value": "Em que mês você nasceu?"
-                    }
-                ]
-            },
-            {
-                "id": "Elicit.Slot.303899476312.985837334781",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "Eu nasci no dia seis. Em que dia você nasceu?"
-                    }
-                ]
-            },
-            {
-                "id": "Elicit.Slot.303899476312.27341833344",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "Eu nasci em dois mil e quatorze, em que ano você nasceu com quatro dígitos?"
-                    }
-                ]
+              "name": "dateOfBirth",
+              "type": "AMAZON.DATE"
             }
+          ],
+          "samples": [
+            "{dateOfBirth}",
+            "Em {dateOfBirth}",
+            "Nasci em {dateOfBirth}",
+            "Eu nasci em {dateOfBirth}"
+          ]
+        }
+      ],
+      "types": []
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "CaptureBirthdayIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "dateOfBirth",
+              "type": "AMAZON.DATE",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.606083399201.1026757198736"
+              }
+            }
+          ]
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.606083399201.1026757198736",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Eu nasci em seis de novembro de dois mil e quatorze. Qual é a sua data de nascimento?"
+          }
         ]
-    }
+      }
+    ]
+  },
+  "version": "18"
 }

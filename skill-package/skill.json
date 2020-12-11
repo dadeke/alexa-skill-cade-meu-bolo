@@ -13,13 +13,14 @@
             "parabéns"
           ],
           "name": "Cadê Meu Bolo",
-          "description": "A skill Cadê Meu Bolo é capaz de lembrar quantos dias faltam para o seu próximo aniversário.\n\nDiga \"Alexa, Cadê Meu Bolo?\". Ela irá perguntar quando é que você nasceu.\nDepois de ela conhecer a sua data de nascimento, sempre quando você perguntá-la \"Alexa, Cadê Meu Bolo?\" ela irá dizer quantos dias faltam e quantos anos você irá fazer no seu próximo aniversário.\n\nQuando chegar o dia do seu aniversário, basta perguntar \"Alexa, Cadê Meu Bolo?\" ela irá cantar \"parabéns pra você\" e bater palmas.\n\nCaso deseje corrigir a sua data de nascimento, acesse o aplicativo Alexa, desative esta skill e em seguida ative-a novamente para uso. Depois é somente repetir o processo informando a sua data de nascimento.\n\nAgora esta skill pode tentar distinguir a sua voz da voz de outras pessoas e lhe chamar pelo nome.\nEste recurso é fornecido pela própria Alexa. Caso tenha problemas para reconhecer a sua voz, será preciso tentar ensiná-la novamente.\nMaiores informações, acesse o aplicativo Alexa em Configurações \u003e Meu perfil \u003e Voz.\n\n----------------\n\nGostou da skill Cadê Meu Bolo? Por favor, deixe uma avaliação! Muito obrigado!\n\nPara dar feedback sobre esta skill, entre em contato através do e-mail: oi@dd.tec.br\n\n----------------\n\nVocê pode visualizar o histórico de atualizações e contribuir para o código fonte desta skill no GitHub - https://github.com/dadeke/alexa-skill-cade-meu-bolo\n\nBaseada na skill Cake Time divulgada no treinamento da Amazon.\n\n----------------\n\"Esforcem-se para ter uma vida tranquila, cuidar dos seus próprios negócios e trabalhar com as próprias mãos...\" 1 Tessalonicenses 4:11 NVI",
-          "updatesDescription": "- Agora esta skill pode tentar distinguir a sua voz da voz de outras pessoas e lhe chamar pelo nome. Maiores informações, acesse o aplicativo Alexa em Configurações \u003e Meu perfil \u003e Voz.\n- Adicionado o armazenamento da data de nascimento para múltiplos perfis de voz.\n- Melhorias no reconhecimento da data de nascimento."
+          "description": "A skill Cadê Meu Bolo é capaz de lembrar quantos dias faltam para o seu próximo aniversário.\n\nDiga \"Alexa, Cadê Meu Bolo?\". Ela irá perguntar quando é que você nasceu.\nDepois de ela conhecer a sua data de nascimento, sempre quando você perguntá-la \"Alexa, Cadê Meu Bolo?\" ela irá dizer quantos dias faltam e quantos anos você irá fazer no seu próximo aniversário.\n\nQuando chegar o dia do seu aniversário, basta perguntar \"Alexa, Cadê Meu Bolo?\" ela irá cantar \"parabéns pra você\" e bater palmas.\n\nCaso deseje corrigir a sua data de nascimento, acesse o aplicativo Alexa, desative esta skill e em seguida ative-a novamente para uso. Depois é somente repetir o processo informando a sua data de nascimento.\n\nEsta skill pode tentar distinguir a sua voz da voz de outras pessoas e lhe chamar pelo nome.\nEste recurso é fornecido pela própria Alexa. Caso tenha problemas para reconhecer a sua voz, será preciso tentar ensiná-la novamente.\nMaiores informações, diga: \"Alexa, aprenda a minha voz\" ou acesse o aplicativo Alexa em Configurações \u003e Meu perfil \u003e Voz.\n\n----------------\n\nGostou da skill Cadê Meu Bolo? Por favor, deixe uma avaliação! Muito obrigado!\n\nPara dar feedback sobre esta skill, entre em contato através do e-mail: oi@dd.tec.br\n\n----------------\n\nVocê pode visualizar o histórico de atualizações e contribuir para o código fonte desta skill no GitHub - https://github.com/dadeke/alexa-skill-cade-meu-bolo\n\nBaseada na skill Cake Time divulgada no treinamento da Amazon.\n\n----------------\n\"Esforcem-se para ter uma vida tranquila, cuidar dos seus próprios negócios e trabalhar com as próprias mãos...\" 1 Tessalonicenses 4:11 NVI",
+          "updatesDescription": "- Adicionada a migração gradual das datas de nascimento para outro serviço de armazenamento mais recomendado.\n- Também fizemos melhorias e correções apontadas por vocês nos comentários."
         }
       },
       "isAvailableWorldwide": false,
       "testingInstructions": "Instruções para teste.",
       "category": "CALENDARS_AND_REMINDERS",
+      "distributionMode": "PUBLIC",
       "distributionCountries": [
         "BR"
       ]
@@ -27,9 +28,9 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "sourceDir": "lambda/custom",
-          "uri": "ask-custom-helloworld-default"
-        }
+          "uri": "ask-custom-cade-meu-bolo-default"
+        },
+        "interfaces": []
       }
     },
     "manifestVersion": "1.0",
@@ -42,6 +43,7 @@
       "allowsPurchases": false,
       "locales": {
         "pt-BR": {
+          "termsOfUseUrl": "https://github.com/dadeke/alexa-skill-cade-meu-bolo/blob/master/tos_pt-br.md#termos-de-servi%C3%A7o-da-dd-tecnologia",
           "privacyPolicyUrl": "https://github.com/dadeke/alexa-skill-cade-meu-bolo/blob/master/privacy-policy_pt-br.md#pol%C3%ADtica-de-privacidade-da-dd-tecnologia"
         }
       },
