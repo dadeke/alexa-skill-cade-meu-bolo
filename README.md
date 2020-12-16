@@ -13,7 +13,8 @@ Compatível com o "Import skill" do Alexa Developer Console.
 
 ### _Gostou desta skill? Considere fazer uma doação para ajudar a apoiar seu desenvolvimento. Muito obrigado!_
 
-[<p align="center">![Doe com Pix!](https://i.imgur.com/gS4NXEg.png)</p>](https://picpay.me/deividsondamasio)
+[<p align="center">![Doe com Pix!](https://i.imgur.com/GncXSJY.png)</p>](https://picpay.me/deividsondamasio)
+<p align="center"><b>Chave aleatória do Pix:</b><br /><b>3a00764d-7467-4505-80a5-5434f1b5d895</b></p>
 
 A skill Cadê Meu Bolo é capaz de lembrar quantos dias faltam para o seu próximo aniversário.
 
