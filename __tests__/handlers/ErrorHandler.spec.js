@@ -7,6 +7,8 @@ describe('Sequence 08. Test scenario: ErrorHandler', () => {
   // eslint-disable-next-line no-console
   console.error = mockConsoleError;
 
+  const testResponseBuilder = Alexa.ResponseFactory.init();
+
   const handlerInput = {
     responseBuilder: Alexa.ResponseFactory.init(),
   };
@@ -17,24 +19,11 @@ describe('Sequence 08. Test scenario: ErrorHandler', () => {
   });
 
   it('should be able can return response', () => {
-    const outputSpeech = {
-      outputSpeech: {
-        type: 'SSML',
-        ssml: `<speak>${speaks.NOT_UNDERSTAND}</speak>`,
-      },
-      card: {
-        type: 'Standard',
-        title: speaks.SKILL_NAME,
-        text: speaks.NOT_UNDERSTAND,
-      },
-      reprompt: {
-        outputSpeech: {
-          type: 'SSML',
-          ssml: `<speak>${speaks.NOT_UNDERSTAND}</speak>`,
-        },
-      },
-      shouldEndSession: false,
-    };
+    const outputSpeech = testResponseBuilder
+      .speak(speaks.NOT_UNDERSTAND)
+      .withStandardCard(speaks.SKILL_NAME, speaks.NOT_UNDERSTAND)
+      .reprompt(speaks.NOT_UNDERSTAND)
+      .getResponse();
 
     expect(ErrorHandler.handle(handlerInput, error)).toEqual(outputSpeech);
     expect(mockConsoleError).toHaveBeenCalledWith('Error handled:', '{}');

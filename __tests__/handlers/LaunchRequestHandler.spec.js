@@ -5,7 +5,6 @@ const speaks = require('../../lambda/speakStrings');
 const personId = 'amzn1.ask.person.XXXXXXXX';
 
 describe('Sequence 01. Test scenario: launch request. no further interaction.', () => {
-  const responseBuilder = Alexa.ResponseFactory.init();
   const handlerInput = {
     requestEnvelope: {
       request: {
@@ -15,8 +14,9 @@ describe('Sequence 01. Test scenario: launch request. no further interaction.', 
         System: {},
       },
     },
-    responseBuilder,
+    responseBuilder: Alexa.ResponseFactory.init(),
   };
+  const testResponseBuilder = Alexa.ResponseFactory.init();
 
   beforeEach(() => {
     handlerInput.requestEnvelope.request.type = 'LaunchRequest';
@@ -33,24 +33,11 @@ describe('Sequence 01. Test scenario: launch request. no further interaction.', 
   });
 
   it('should be able can return response', () => {
-    const outputSpeech = {
-      outputSpeech: {
-        type: 'SSML',
-        ssml: `<speak>${speaks.WELCOME}</speak>`,
-      },
-      card: {
-        type: 'Standard',
-        title: speaks.SKILL_NAME,
-        text: speaks.WELCOME,
-      },
-      reprompt: {
-        outputSpeech: {
-          type: 'SSML',
-          ssml: `<speak>${speaks.REPROMPT}</speak>`,
-        },
-      },
-      shouldEndSession: false,
-    };
+    const outputSpeech = testResponseBuilder
+      .speak(speaks.WELCOME)
+      .withStandardCard(speaks.SKILL_NAME, speaks.WELCOME)
+      .reprompt(speaks.REPROMPT)
+      .getResponse();
 
     expect(LaunchRequestHandler.handle(handlerInput)).toEqual(outputSpeech);
   });
@@ -60,24 +47,11 @@ describe('Sequence 01. Test scenario: launch request. no further interaction.', 
       personId,
     };
 
-    const outputSpeech = {
-      outputSpeech: {
-        type: 'SSML',
-        ssml: `<speak>${speaks.PERSONALIZED_WELCOME.format(personId)}</speak>`,
-      },
-      card: {
-        type: 'Standard',
-        title: speaks.SKILL_NAME,
-        text: speaks.WELCOME,
-      },
-      reprompt: {
-        outputSpeech: {
-          type: 'SSML',
-          ssml: `<speak>${speaks.REPROMPT}</speak>`,
-        },
-      },
-      shouldEndSession: false,
-    };
+    const outputSpeech = testResponseBuilder
+      .speak(speaks.PERSONALIZED_WELCOME.format(personId))
+      .withStandardCard(speaks.SKILL_NAME, speaks.WELCOME)
+      .reprompt(speaks.REPROMPT)
+      .getResponse();
 
     expect(LaunchRequestHandler.handle(handlerInput)).toEqual(outputSpeech);
   });

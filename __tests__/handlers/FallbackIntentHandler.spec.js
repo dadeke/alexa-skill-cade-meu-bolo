@@ -17,6 +17,7 @@ describe('Sequence 06. Test scenario: FallbackIntent', () => {
     },
     responseBuilder: Alexa.ResponseFactory.init(),
   };
+  const testResponseBuilder = Alexa.ResponseFactory.init();
 
   beforeEach(() => {
     handlerInput.requestEnvelope.request.intent.name = 'AMAZON.FallbackIntent';
@@ -33,18 +34,14 @@ describe('Sequence 06. Test scenario: FallbackIntent', () => {
   });
 
   it('should be able can return response', () => {
-    const outputSpeech = {
-      outputSpeech: {
-        type: 'SSML',
-        ssml: `<speak>${speaks.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE}</speak>`,
-      },
-      card: {
-        type: 'Standard',
-        title: speaks.SKILL_NAME,
-        text: speaks.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE,
-      },
-      shouldEndSession: true,
-    };
+    const outputSpeech = testResponseBuilder
+      .speak(speaks.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE)
+      .withStandardCard(
+        speaks.SKILL_NAME,
+        speaks.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE,
+      )
+      .withShouldEndSession(true)
+      .getResponse();
 
     expect(FallbackIntentHandler.handle(handlerInput)).toEqual(outputSpeech);
   });

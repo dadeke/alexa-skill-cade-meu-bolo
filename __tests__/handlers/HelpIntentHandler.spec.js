@@ -17,6 +17,7 @@ describe('Sequence 04. Test scenario: HelpIntent', () => {
     },
     responseBuilder: Alexa.ResponseFactory.init(),
   };
+  const testResponseBuilder = Alexa.ResponseFactory.init();
 
   beforeEach(() => {
     handlerInput.requestEnvelope.request.intent.name = 'AMAZON.HelpIntent';
@@ -33,24 +34,11 @@ describe('Sequence 04. Test scenario: HelpIntent', () => {
   });
 
   it('should be able can return response', () => {
-    const outputSpeech = {
-      outputSpeech: {
-        type: 'SSML',
-        ssml: `<speak>${speaks.HELP}</speak>`,
-      },
-      card: {
-        type: 'Standard',
-        title: speaks.SKILL_NAME,
-        text: speaks.HELP,
-      },
-      reprompt: {
-        outputSpeech: {
-          type: 'SSML',
-          ssml: `<speak>${speaks.HELP}</speak>`,
-        },
-      },
-      shouldEndSession: false,
-    };
+    const outputSpeech = testResponseBuilder
+      .speak(speaks.HELP)
+      .withStandardCard(speaks.SKILL_NAME, speaks.HELP)
+      .reprompt(speaks.HELP)
+      .getResponse();
 
     expect(HelpIntentHandler.handle(handlerInput)).toEqual(outputSpeech);
   });

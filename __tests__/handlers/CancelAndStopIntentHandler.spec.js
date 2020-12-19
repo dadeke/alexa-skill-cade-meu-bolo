@@ -3,8 +3,6 @@ const CancelAndStopIntentHandler = require('../../lambda/handlers/CancelAndStopI
 const speaks = require('../../lambda/speakStrings');
 
 describe('Sequence 05. Test scenario: AMAZON.CancelIntent and AMAZON.StopIntent', () => {
-  const responseBuilder = Alexa.ResponseFactory.init();
-
   const handlerInput = {
     requestEnvelope: {
       request: {
@@ -15,8 +13,9 @@ describe('Sequence 05. Test scenario: AMAZON.CancelIntent and AMAZON.StopIntent'
         System: {},
       },
     },
-    responseBuilder,
+    responseBuilder: Alexa.ResponseFactory.init(),
   };
+  const testResponseBuilder = Alexa.ResponseFactory.init();
 
   beforeEach(() => {
     handlerInput.requestEnvelope.request.type = 'IntentRequest';
@@ -43,18 +42,11 @@ describe('Sequence 05. Test scenario: AMAZON.CancelIntent and AMAZON.StopIntent'
   it('should be able can return response when AMAZON.CancelIntent', () => {
     handlerInput.requestEnvelope.request.intent.name = 'AMAZON.CancelIntent';
 
-    const outputSpeech = {
-      outputSpeech: {
-        type: 'SSML',
-        ssml: `<speak>${speaks.BYE_BYE}</speak>`,
-      },
-      card: {
-        type: 'Standard',
-        title: speaks.SKILL_NAME,
-        text: speaks.BYE_BYE,
-      },
-      shouldEndSession: true,
-    };
+    const outputSpeech = testResponseBuilder
+      .speak(speaks.BYE_BYE)
+      .withStandardCard(speaks.SKILL_NAME, speaks.BYE_BYE)
+      .withShouldEndSession(true)
+      .getResponse();
 
     expect(CancelAndStopIntentHandler.handle(handlerInput)).toEqual(
       outputSpeech,
@@ -64,18 +56,11 @@ describe('Sequence 05. Test scenario: AMAZON.CancelIntent and AMAZON.StopIntent'
   it('should be able can return response when AMAZON.StopIntent', () => {
     handlerInput.requestEnvelope.request.intent.name = 'AMAZON.StopIntent';
 
-    const outputSpeech = {
-      outputSpeech: {
-        type: 'SSML',
-        ssml: `<speak>${speaks.BYE_BYE}</speak>`,
-      },
-      card: {
-        type: 'Standard',
-        title: speaks.SKILL_NAME,
-        text: speaks.BYE_BYE,
-      },
-      shouldEndSession: true,
-    };
+    const outputSpeech = testResponseBuilder
+      .speak(speaks.BYE_BYE)
+      .withStandardCard(speaks.SKILL_NAME, speaks.BYE_BYE)
+      .withShouldEndSession(true)
+      .getResponse();
 
     expect(CancelAndStopIntentHandler.handle(handlerInput)).toEqual(
       outputSpeech,

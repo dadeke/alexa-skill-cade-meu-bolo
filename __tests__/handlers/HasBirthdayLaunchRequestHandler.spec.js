@@ -140,7 +140,6 @@ describe('Sequence 03. HasBirthdayLaunchRequest with an utterance', () => {
   // eslint-disable-next-line no-console
   console.error = mockConsoleError;
 
-  const responseBuilder = Alexa.ResponseFactory.init();
   const handlerInput = {
     attributesManager: {
       setPersistentAttributes,
@@ -158,15 +157,14 @@ describe('Sequence 03. HasBirthdayLaunchRequest with an utterance', () => {
         },
       },
     },
-    responseBuilder,
+    responseBuilder: Alexa.ResponseFactory.init(),
     serviceClientFactory: {
-      getUpsServiceClient: () => {
-        return {
-          getSystemTimeZone,
-        };
-      },
+      getUpsServiceClient: () => ({
+        getSystemTimeZone,
+      }),
     },
   };
+  const testResponseBuilder = Alexa.ResponseFactory.init();
 
   beforeEach(() => {
     handlerInput.requestEnvelope.request.type = 'LaunchRequest';
@@ -190,13 +188,11 @@ describe('Sequence 03. HasBirthdayLaunchRequest with an utterance', () => {
   });
 
   it('should be able can handle LaunchRequest', () => {
-    handlerInput.attributesManager.getSessionAttributes = () => {
-      return {
-        default: {
-          dateOfBirth: '1990-1-1',
-        },
-      };
-    };
+    handlerInput.attributesManager.getSessionAttributes = () => ({
+      default: {
+        dateOfBirth: '1990-1-1',
+      },
+    });
 
     expect(HasBirthdayLaunchRequestHandler.canHandle(handlerInput)).toEqual(
       true,
@@ -206,13 +202,11 @@ describe('Sequence 03. HasBirthdayLaunchRequest with an utterance', () => {
   it('should be able can handle LaunchRequest personalized', () => {
     handlerInput.requestEnvelope.context.System.person = { personId };
 
-    handlerInput.attributesManager.getSessionAttributes = () => {
-      return {
-        [personId]: {
-          dateOfBirth: '1990-1-1',
-        },
-      };
-    };
+    handlerInput.attributesManager.getSessionAttributes = () => ({
+      [personId]: {
+        dateOfBirth: '1990-1-1',
+      },
+    });
 
     expect(HasBirthdayLaunchRequestHandler.canHandle(handlerInput)).toEqual(
       true,
@@ -220,13 +214,11 @@ describe('Sequence 03. HasBirthdayLaunchRequest with an utterance', () => {
   });
 
   it('should be able can return response problem when can not connect service when is not ServiceError', async () => {
-    handlerInput.attributesManager.getSessionAttributes = () => {
-      return {
-        default: {
-          dateOfBirth: '1990-1-1',
-        },
-      };
-    };
+    handlerInput.attributesManager.getSessionAttributes = () => ({
+      default: {
+        dateOfBirth: '1990-1-1',
+      },
+    });
 
     getSystemTimeZone.mockImplementation(() => {
       const error = {
@@ -237,13 +229,10 @@ describe('Sequence 03. HasBirthdayLaunchRequest with an utterance', () => {
       throw error;
     });
 
-    const outputSpeech = {
-      outputSpeech: {
-        type: 'SSML',
-        ssml: `<speak>${speaks.PROBLEM}</speak>`,
-      },
-      shouldEndSession: true,
-    };
+    const outputSpeech = testResponseBuilder
+      .speak(speaks.PROBLEM)
+      .withShouldEndSession(true)
+      .getResponse();
 
     const response = await HasBirthdayLaunchRequestHandler.handle(handlerInput);
 
@@ -252,13 +241,11 @@ describe('Sequence 03. HasBirthdayLaunchRequest with an utterance', () => {
   });
 
   it('should be able can return response not understand when can not connect service when is ServiceError', async () => {
-    handlerInput.attributesManager.getSessionAttributes = () => {
-      return {
-        default: {
-          dateOfBirth: '1990-1-1',
-        },
-      };
-    };
+    handlerInput.attributesManager.getSessionAttributes = () => ({
+      default: {
+        dateOfBirth: '1990-1-1',
+      },
+    });
 
     getSystemTimeZone.mockImplementation(() => {
       const error = {
@@ -282,9 +269,7 @@ describe('Sequence 03. HasBirthdayLaunchRequest with an utterance', () => {
   });
 
   it('should be able can return response not understand when sessionAttributes return null', async () => {
-    handlerInput.attributesManager.getSessionAttributes = () => {
-      return null;
-    };
+    handlerInput.attributesManager.getSessionAttributes = () => null;
 
     getSystemTimeZone.mockReturnValueOnce(deviceTimeZone);
 
@@ -302,13 +287,11 @@ describe('Sequence 03. HasBirthdayLaunchRequest with an utterance', () => {
   });
 
   it('should be able can return response', async () => {
-    handlerInput.attributesManager.getSessionAttributes = () => {
-      return {
-        default: {
-          dateOfBirth: '1990-1-1',
-        },
-      };
-    };
+    handlerInput.attributesManager.getSessionAttributes = () => ({
+      default: {
+        dateOfBirth: '1990-1-1',
+      },
+    });
 
     getSystemTimeZone.mockReturnValueOnce(deviceTimeZone);
 
@@ -325,13 +308,11 @@ describe('Sequence 03. HasBirthdayLaunchRequest with an utterance', () => {
   it('should be able can return response personalized', async () => {
     handlerInput.requestEnvelope.context.System.person = { personId };
 
-    handlerInput.attributesManager.getSessionAttributes = () => {
-      return {
-        [personId]: {
-          dateOfBirth: '1990-1-1',
-        },
-      };
-    };
+    handlerInput.attributesManager.getSessionAttributes = () => ({
+      [personId]: {
+        dateOfBirth: '1990-1-1',
+      },
+    });
 
     getSystemTimeZone.mockReturnValueOnce(deviceTimeZone);
 
@@ -353,17 +334,15 @@ describe('Sequence 03. HasBirthdayLaunchRequest with an utterance', () => {
     let testDateOfBirth = subYears(currentDateTime, 1);
     testDateOfBirth = addDays(testDateOfBirth, 1);
 
-    handlerInput.attributesManager.getSessionAttributes = () => {
-      return {
-        default: {
-          dateOfBirth:
-            `${testDateOfBirth.getFullYear()}-` +
-            // No JavaScript o primeiro mês no "new Date()" começa com zero.
-            `${testDateOfBirth.getMonth() + 1}-` +
-            `${testDateOfBirth.getDate()}`,
-        },
-      };
-    };
+    handlerInput.attributesManager.getSessionAttributes = () => ({
+      default: {
+        dateOfBirth:
+          `${testDateOfBirth.getFullYear()}-` +
+          // No JavaScript o primeiro mês no "new Date()" começa com zero.
+          `${testDateOfBirth.getMonth() + 1}-` +
+          `${testDateOfBirth.getDate()}`,
+      },
+    });
 
     getSystemTimeZone.mockReturnValueOnce(deviceTimeZone);
 
@@ -382,17 +361,15 @@ describe('Sequence 03. HasBirthdayLaunchRequest with an utterance', () => {
       new Date().toLocaleString('en-US', { timeZone: deviceTimeZone }),
     );
 
-    handlerInput.attributesManager.getSessionAttributes = () => {
-      return {
-        default: {
-          dateOfBirth:
-            `${currentDateTime.getFullYear()}-` +
-            // No JavaScript o primeiro mês no "new Date()" começa com zero.
-            `${currentDateTime.getMonth() + 1}-` +
-            `${currentDateTime.getDate()}`,
-        },
-      };
-    };
+    handlerInput.attributesManager.getSessionAttributes = () => ({
+      default: {
+        dateOfBirth:
+          `${currentDateTime.getFullYear()}-` +
+          // No JavaScript o primeiro mês no "new Date()" começa com zero.
+          `${currentDateTime.getMonth() + 1}-` +
+          `${currentDateTime.getDate()}`,
+      },
+    });
 
     getSystemTimeZone.mockReturnValueOnce(deviceTimeZone);
 
@@ -408,17 +385,13 @@ describe('Sequence 03. HasBirthdayLaunchRequest with an utterance', () => {
 
   it('should be able can return response not understand when invalid date', async () => {
     // Realmente não sei como isto poderia acontecer. XD
-    jest.spyOn(global, 'Date').mockImplementation(() => {
-      return {};
-    });
+    jest.spyOn(global, 'Date').mockImplementation(() => ({}));
 
-    handlerInput.attributesManager.getSessionAttributes = () => {
-      return {
-        default: {
-          dateOfBirth: '0-0-0',
-        },
-      };
-    };
+    handlerInput.attributesManager.getSessionAttributes = () => ({
+      default: {
+        dateOfBirth: '0-0-0',
+      },
+    });
 
     getSystemTimeZone.mockReturnValueOnce(deviceTimeZone);
 

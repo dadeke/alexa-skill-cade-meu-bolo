@@ -108,9 +108,7 @@ describe('Test LoadBirthdayInterceptor', () => {
 
   it('should be able process with persistent attributes elsewhere and with invalid date', async () => {
     // Realmente não sei como isto poderia acontecer. XD
-    jest.spyOn(global, 'Date').mockImplementation(() => {
-      return {};
-    });
+    jest.spyOn(global, 'Date').mockImplementation(() => ({}));
 
     getPersistentAttributes.mockReturnValueOnce(false);
     s3ObjectExists.mockReturnValueOnce(true);

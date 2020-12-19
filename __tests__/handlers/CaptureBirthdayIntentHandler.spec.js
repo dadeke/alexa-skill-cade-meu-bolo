@@ -34,7 +34,6 @@ describe('Sequence 02. CaptureBirthdayIntent with an utterance', () => {
   // eslint-disable-next-line no-console
   console.error = mockConsoleError;
 
-  const responseBuilder = Alexa.ResponseFactory.init();
   const handlerInput = {
     attributesManager: {
       getPersistentAttributes,
@@ -61,15 +60,14 @@ describe('Sequence 02. CaptureBirthdayIntent with an utterance', () => {
         },
       },
     },
-    responseBuilder,
+    responseBuilder: Alexa.ResponseFactory.init(),
     serviceClientFactory: {
-      getUpsServiceClient: () => {
-        return {
-          getSystemTimeZone,
-        };
-      },
+      getUpsServiceClient: () => ({
+        getSystemTimeZone,
+      }),
     },
   };
+  const testResponseBuilder = Alexa.ResponseFactory.init();
 
   beforeEach(() => {
     handlerInput.requestEnvelope.request.intent.name = 'CaptureBirthdayIntent';
@@ -171,18 +169,14 @@ describe('Sequence 02. CaptureBirthdayIntent with an utterance', () => {
       throw error;
     });
 
-    const outputSpeech = {
-      outputSpeech: {
-        type: 'SSML',
-        ssml: `<speak>${speaks.PROBLEM}</speak>`,
-      },
-      card: {
-        type: 'Standard',
-        title: speaks.SKILL_NAME,
-        text: speaks.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE,
-      },
-      shouldEndSession: true,
-    };
+    const outputSpeech = testResponseBuilder
+      .speak(speaks.PROBLEM)
+      .withStandardCard(
+        speaks.SKILL_NAME,
+        speaks.NOT_UNDERSTAND_BIRTH_DATE_CAPTURE,
+      )
+      .withShouldEndSession(true)
+      .getResponse();
 
     const response = await CaptureBirthdayIntentHandler.handle(handlerInput);
 
