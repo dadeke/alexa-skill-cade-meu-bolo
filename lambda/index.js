@@ -13,6 +13,9 @@ const ErrorHandler = require('./handlers/ErrorHandler');
 
 const LoadBirthdayInterceptor = require('./interceptors/LoadBirthdayInterceptor');
 
+process.env.URL_ICON_108 = 'https://example.com/icon_108.png';
+process.env.URL_ICON_512 = 'https://example.com/icon_512.png';
+
 exports.handler = Alexa.SkillBuilders.custom()
   .withPersistenceAdapter(
     new DDBAdapter.DynamoDbPersistenceAdapter({
