@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.com/dadeke/alexa-skill-cade-meu-bolo.svg?branch=master)](https://travis-ci.com/github/dadeke/alexa-skill-cade-meu-bolo)
 [![Coverage Status](https://codecov.io/gh/dadeke/alexa-skill-cade-meu-bolo/branch/master/graph/badge.svg)](https://codecov.io/gh/dadeke/alexa-skill-cade-meu-bolo)
+[![ESLint](https://img.shields.io/badge/eslint-6.8.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
+[![Airbnb Style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
+[![Jest](https://img.shields.io/badge/jest-26.6.3-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Stargazers](https://img.shields.io/github/stars/dadeke/alexa-skill-cade-meu-bolo?style=social)](https://github.com/dadeke/alexa-skill-cade-meu-bolo/stargazers)
 
 Repositório do código fonte da skill da Alexa: [Cadê Meu Bolo](https://www.amazon.com.br/DD-Tecnologia-Cad%C3%AA-Meu-Bolo/dp/B081FL21ZR/).
@@ -13,7 +17,7 @@ Compatível com o "Import skill" do Alexa Developer Console.
 
 ### _Gostou desta skill? Considere fazer uma doação para ajudar a apoiar seu desenvolvimento. Muito obrigado!_
 
-[<p align="center">![Doe com Pix!](https://i.imgur.com/GncXSJY.png)</p>](https://picpay.me/deividsondamasio)
+[<p align="center">![Doe com Pix!](https://i.imgur.com/FDUUMRP.png)</p>](https://picpay.me/deividsondamasio)
 <p align="center"><b>Chave aleatória do Pix:</b><br /><b>3a00764d-7467-4505-80a5-5434f1b5d895</b></p>
 
 A skill Cadê Meu Bolo é capaz de lembrar quantos dias faltam para o seu próximo aniversário.
